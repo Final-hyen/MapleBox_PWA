@@ -15,16 +15,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header>
-          <ol>
-            <li>
-              <Link href={`/`}>Maple Cube</Link>
-              <Link href={`/result`}>결과</Link>
-              <Link href={`/cube`}>큐브 시뮬레이터</Link>
+        <header className="my-2 h-[50px] w-full bg-white">
+          <ol className="flex h-full items-center justify-between">
+            <li className="m1-16 flex h-full items-center gap-[45px] text-[20px]">
+              <Link className="font-bold" href={`/`}>Maple Cube</Link>
+              <Link className="mr-10 hover:text-blue-600" href={`/result`}>
+                결과
+              </Link>
+              <Link className="hover:text-blue-600" href={`/cube`}>
+                큐브 시뮬레이터
+              </Link>
             </li>
           </ol>
         </header>
         {children}
+        <footer className="text-center text-[18px] bg-[#A5DD9B] text-gray-50 h-[100px]">
+          Copyright 2024. 스카니아@풀타수집, all rights reserved. Cuogle is not
+          associated with NEXON Korea.
+          <br />
+          contact: jwx9797@gmail.com
+        </footer>
       </body>
     </html>
   );
