@@ -3,21 +3,23 @@ import Image from "next/image";
 import search from "/public/img/search.webp";
 import { getOcid } from "@/api/nexonAPI";
 import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import moment from "moment";
-import { useRecoilState } from "recoil";
-import { dateState } from "@/recoil/atom";
 
 export default function Home() {
   const [name, setName] = useState<string>("");
-  const [date, setDate] = useRecoilState(dateState);
+  const [date, setDate] = useState<string>("");
+  const router = useRouter();
   const isClickSearch = (e: FormEvent) => {
     e.preventDefault();
     getOcid(name);
+    localStorage.setItem("date", date);
+    router.push(`/result`);
   };
-  console.log(date, name);
+
   useEffect(() => {
-    const today = moment().format("YYYY-MM-DD");
-    setDate(today);
+    const yesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+    setDate(yesterday);
   }, [setDate]);
 
   return (
