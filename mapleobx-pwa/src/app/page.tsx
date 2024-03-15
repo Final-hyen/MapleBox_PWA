@@ -23,7 +23,7 @@ export default function Home() {
   }, [setDate]);
 
   return (
-    <div className="h-[980px] flex justify-center items-center bg-[#C5EBAA]">
+    
       <div className="flex w-[500px] flex-col gap-[13px] rounded-[10px] p-[30px]">
         <h2 className="text-center font-bold text-[72px]">Couble</h2>
         <div className="flex w-full flex-col gap-[8px]">
@@ -31,6 +31,7 @@ export default function Home() {
             <input
               type="date"
               value={date}
+              max={date}
               onChange={(e) => setDate(e.target.value)}
             ></input>
             <div className="relative">
@@ -60,6 +61,5 @@ export default function Home() {
           <p>* 닉네임은 대소문자 구분이 필요합니다.</p>
         </div>
       </div>
-    </div>
   );
 }

@@ -26,7 +26,7 @@ export async function getOcid(nickname: string) {
   }
 }
 
-export async function getBasicInfo() {
+export async function getBasicInfo(): Promise<Object> {
   try {
     const res = await axios.get(
       "https://open.api.nexon.com/maplestory/v1/character/basic",
@@ -42,8 +42,9 @@ export async function getBasicInfo() {
       }
     );
     const data = res.data;
-    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }

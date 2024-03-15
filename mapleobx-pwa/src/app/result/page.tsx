@@ -1,17 +1,30 @@
 "use client";
 import { getBasicInfo } from "@/api/nexonAPI";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+
+interface BasicInfo {
+  [key: string]: any;
+}
 
 export default function Home() {
-  let resData;
-  console.log(localStorage.getItem("ocid"));
+  const [infoData, setInfoData] = useState<BasicInfo | null>(null);
+
   useEffect(() => {
-    resData = getBasicInfo();
+    const fetchData = async () => {
+      try{
+        const data: BasicInfo = await getBasicInfo();
+        setInfoData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, []);
+  
+  console.log(infoData);
   return (
     <>
       <div>결과 페이지</div>
-      <div>{resData}</div>
     </>
   );
 }
