@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ol-list > li {
+  width: 161px;
+  height: 28px;
+  background: #a5b1bc;
+  margin-bottom: 4px;
+  color: white;
+  border-radius: 20px;
+  padding-left: 20px;
+  text-align: left;
+  line-height: 2;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+#clan {
+  background: #57c1ef;
+}
