@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
 import Mark from "/public/img/Mark.png";
+import RecoilRootWrapper from "@/recoil/RecoilWrapper";
 
 export const metadata: Metadata = {
   title: "Maple Cube",
@@ -37,7 +38,9 @@ export default function RootLayout({
             </li>
           </ol>
         </header>
-        {children}
+        <div className="h-[980px] flex justify-center items-center bg-[#C5EBAA]">
+          <RecoilRootWrapper>{children}</RecoilRootWrapper>
+        </div>
         <footer className="flex flex-col items-center justify-center text-center text-[18px] bg-[#A5DD9B] text-gray-50 h-[100px]">
           <p>
             Copyright 2024. 스카니아@풀타수집, all rights reserved. Cuogle is
