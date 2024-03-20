@@ -3,13 +3,15 @@
 @tailwind utilities;
 
 .ol-list > li {
+  display: flex;
+  justify-content: space-between;
   width: 161px;
   height: 28px;
   background: #a5b1bc;
   margin-bottom: 4px;
   color: white;
   border-radius: 20px;
-  padding-left: 20px;
+  padding: 0 20px;
   text-align: left;
   line-height: 2;
   vertical-align: middle;
@@ -17,5 +19,16 @@
 }
 
 #clan {
+  display: flex;
+  justify-content: center;
   background: #57c1ef;
+}
+
+#guild {
+  text-align: center;
+}
+
+#info {
+  text-align: right;
+  color: rgba(0, 0, 0, 0.7);
 }
