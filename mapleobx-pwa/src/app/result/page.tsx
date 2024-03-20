@@ -1,29 +1,33 @@
 "use client";
-import { getBasicInfo, getStatInfo, getUnion } from "@/api/nexonAPI";
+import { getInfo } from "@/api/nexonAPI";
 import { useEffect, useState } from "react";
 import "./../globals.css";
 
-interface BasicInfo {
+interface Info {
   [key: string]: any;
 }
-interface UnionInfo {
-  [key: string]: any;
-}
+
 export default function Home() {
-  const [infoData, setInfoData] = useState<BasicInfo | null>(null);
-  const [stat, setStat] = useState<Object | null>(null);
-  const [union, setUnion] = useState<UnionInfo | null>(null);
+  const [infoData, setInfoData] = useState<Info | null>(null);
+  const [stat, setStat] = useState<Info | null>(null);
+  const [union, setUnion] = useState<Info | null>(null);
+  const [dojang, setDojang] = useState<Info | null>(null);
+  const [popularity, setPopularity] = useState<Info | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const info: BasicInfo = await getBasicInfo();
+        const info = await getInfo("character/basic");
         setInfoData(info);
-        const stats = await getStatInfo();
+        const stats = await getInfo("character/stat");
         setStat(stats);
-        const unions = await getUnion();
+        const unions = await getInfo("user/union");
         setUnion(unions);
+        const dojang = await getInfo("character/dojang");
+        setDojang(dojang);
+        const popularity = await getInfo("character/popularity");
+        setPopularity(popularity);
       } catch (error) {
         console.error(error);
       }
@@ -52,17 +56,34 @@ export default function Home() {
                 <span>유니온</span>
                 <span id="info">{union?.union_level}</span>
               </li>
-              <li className="">무릉도장</li>
-              <li className="">인기도</li>
+              <li>
+                <span>무릉도장</span>
+                <span id="info">
+                  {dojang?.dojang_best_floor !== 0
+                    ? `${dojang?.dojang_best_floor}층`
+                    : "-"}
+                </span>
+              </li>
+              <li className="">
+                <span>인기도</span>
+                <span id="info">{popularity?.popularity}</span>
+              </li>
             </ol>
             <img src={infoData?.character_image} alt="character_img" />
             <ol className="ol-list">
-              <li id="clan"></li>
+              <li id="clan">길드 정보</li>
               <li>
                 <span>길드</span>
-                <span id="info">{infoData?.character_guild_name}</span>
+                <span id="info">
+                  {infoData?.character_guild_name == null
+                    ? "-"
+                    : `${infoData?.character_guild_name}`}
+                </span>
               </li>
-              <li>연합</li>
+              <li>
+                <span>연합</span>
+                <span id="info">-</span>
+              </li>
             </ol>
           </div>
         </div>
