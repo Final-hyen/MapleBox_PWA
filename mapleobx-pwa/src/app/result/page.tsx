@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { getInfo } from "@/api/nexonAPI";
 import { useEffect, useState } from "react";
 import "./../globals.css";
@@ -18,28 +19,30 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const info = await getInfo("character/basic");
-        setInfoData(info);
-        const stats = await getInfo("character/stat");
-        setStat(stats);
-        const unions = await getInfo("user/union");
-        setUnion(unions);
-        const dojang = await getInfo("character/dojang");
+        const [basicInfo, stat, union, dojang, popularity] = await axios.all([
+          getInfo("character/basic"),
+          getInfo("character/stat"),
+          getInfo("user/union"),
+          getInfo("character/dojang"),
+          getInfo("character/popularity"),
+        ]);
+        setInfoData(basicInfo);
+        setUnion(union);
         setDojang(dojang);
-        const popularity = await getInfo("character/popularity");
         setPopularity(popularity);
+        localStorage.setItem("stat", JSON.stringify(stat.final_stat));
       } catch (error) {
-        console.error(error);
+        console.log(error);
+        throw error;
       }
     };
     fetchData();
-  }, []);
+  },[]);
 
   const isClickDetail = (e: React.MouseEvent) => {
     setIsOpen(!isOpen);
   };
-
-  console.log(infoData, stat);
+  console.log(infoData);
   return (
     <>
       <div className="absolute top-[120px] px-[11px] pb-[18px] flex flex-wrap flex-col items-stretch justify-evenly w-[654px] h-[300px] bg-[#383638] -z-1 w-632 rounded-md">

@@ -31,7 +31,10 @@ export async function getInfo<T>(endpoint: string) {
   try {
     const res = await axios.get(`${API_URL}/maplestory/v1/${endpoint}`, {
       params: { ocid: ocid, date: date },
-      headers: { "x-nxopen-api-key": `${API_KEY}` },
+      headers: {
+        "x-nxopen-api-key": `${API_KEY}`,
+        "Cache-Control": "must-revalidate, private, max-age=86400",
+      },
     });
     const data = res.data;
     return data;
