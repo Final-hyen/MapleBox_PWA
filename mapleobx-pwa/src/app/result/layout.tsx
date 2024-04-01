@@ -18,28 +18,28 @@ export default function Home({
   const [popularity, setPopularity] = useState<Info | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [basicInfo, stat, union, dojang, popularity] = await axios.all([
-          getInfo("character/basic"),
-          getInfo("character/stat"),
-          getInfo("user/union"),
-          getInfo("character/dojang"),
-          getInfo("character/popularity"),
-        ]);
-        setInfoData(basicInfo);
-        setUnion(union);
-        setDojang(dojang);
-        setPopularity(popularity);
-        localStorage.setItem("stat", JSON.stringify(stat.final_stat));
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [basicInfo, stat, union, dojang, popularity] = await axios.all([
+  //         getInfo("character/basic"),
+  //         getInfo("character/stat"),
+  //         getInfo("user/union"),
+  //         getInfo("character/dojang"),
+  //         getInfo("character/popularity"),
+  //       ]);
+  //       setInfoData(basicInfo);
+  //       setUnion(union);
+  //       setDojang(dojang);
+  //       setPopularity(popularity);
+  //       localStorage.setItem("stat", JSON.stringify(stat.final_stat));
+  //     } catch (error) {
+  //       console.log(error);
+  //       throw error;
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const isClickDetail = (e: React.MouseEvent) => {
     setIsOpen(!isOpen);
@@ -48,7 +48,7 @@ export default function Home({
   console.log(infoData);
   return (
     <>
-      <div className="absolute top-[120px] px-[11px] pb-[18px] flex flex-wrap flex-col items-stretch justify-evenly w-[654px] h-[300px] bg-[#383638] -z-1 w-632 rounded-md">
+      <div className="absolute top-[100px] px-[11px] pb-[18px] flex flex-wrap flex-col items-stretch justify-evenly w-[654px] h-[300px] bg-neutral-700 -z-1 w-632 rounded-md">
         <div className="h-[205px] bg-[#FFFFFF] mt-[27px] rounded-md">
           <p className="mx-auto w-[125px] h-[27px] text-center bg-[#778088] text-gray-200 rounded-b-md">
             Lv.{infoData?.character_level}
@@ -99,11 +99,7 @@ export default function Home({
           </button>
         </div>
       </div>
-      {isOpen ? (
-        <div>{children}</div>
-      ) : (
-        <div>result</div>
-      )}
+      {isOpen ? <div>{children}</div> : <div>result</div>}
     </>
   );
 }
